@@ -120,17 +120,52 @@ st.markdown("""
         border: 1px solid var(--border);
     }
 
-    /* Sidebar Clean-up */
-    section[data-testid="stSidebar"] {
-        background-color: #f8fafc !important;
-        border-right: 1px solid var(--border);
+    /* Sidebar Button Refinement */
+    section[data-testid="stSidebar"] .stButton>button {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        border: 1px solid #e2e8f0 !important;
+        text-align: left !important;
+        padding-left: 1rem !important;
+        height: 3rem !important;
+        font-weight: 500 !important;
     }
-    
-    /* Hide Streamlit elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-    """, unsafe_allow_html=True)
+    section[data-testid="stSidebar"] .stButton>button:hover {
+        background-color: #e2e8f0 !important;
+        border-color: #cbd5e1 !important;
+    }
+
+    /* Landing Page Card Alignment */
+    [data-testid="column"] {
+        display: flex;
+        flex-direction: column;
+    }
+    .premium-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        flex: 1; /* Force equal height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Hero Section Alignment */
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 5% 40px 5%;
+        text-align: center;
+        background: radial-gradient(circle at top right, #f5f3ff, transparent),
+                    radial-gradient(circle at bottom left, #eff6ff, transparent);
+        border-radius: 32px;
+        margin-bottom: 3rem;
+    }
 
 @st.cache_resource
 def load_pipeline():
