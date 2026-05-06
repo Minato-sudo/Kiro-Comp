@@ -25,34 +25,44 @@ st.markdown("""
     :root {
         --primary: #4f46e5;
         --secondary: #6366f1;
-        --background: #ffffff;
-        --surface: #f8fafc;
-        --text-main: #0f172a;
-        --text-muted: #64748b;
-        --border: #e2e8f0;
+        --background: #f1f5f9; /* Soft Slate-White to reduce glare */
+        --surface: #ffffff;
+        --text-main: #000000; /* Pure Black for maximum contrast */
+        --text-muted: #1e293b;
+        --border: #cbd5e1; /* Darker borders for definition */
     }
 
-    .stApp, .stMarkdown, p, span, label, .stMetric, [data-testid="stHeader"] {
-        color: #0f172a !important;
+    .stApp, .stMarkdown, p, span, label, .stMetric, [data-testid="stHeader"], .stButton>button {
+        color: #000000 !important;
+        font-weight: 500 !important;
     }
 
     h1, h2, h3, h4, h5, h6, .hero-title, .hero-subtitle {
-        color: #0f172a !important;
-        font-family: 'Outfit', sans-serif;
+        color: #000000 !important;
+        font-weight: 800 !important;
     }
 
-    /* Sidebar Text Fix */
-    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
-        color: #0f172a !important;
-    }
-    section[data-testid="stSidebar"] h2 {
-        color: #0f172a !important;
+    /* Premium Cards with Defined Borders */
+    .premium-card, .stMetric, div[data-testid="stExpander"], .stPlotlyChart {
+        background: white !important;
+        padding: 2rem;
+        border-radius: 16px;
+        border: 2px solid #cbd5e1 !important; /* Thick defined borders */
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
     }
 
-    /* Input Field Labels */
-    .stTextInput label, .stTextArea label, .stFileUploader label {
-        color: #0f172a !important;
-        font-weight: 600 !important;
+    /* Sidebar Contrast Fix */
+    section[data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        border-right: 2px solid #cbd5e1 !important;
+    }
+    
+    /* Input Visibility Fix */
+    .stTextInput>div>div>input, .stTextArea>div>div>textarea {
+        background-color: white !important;
+        color: black !important;
+        border: 2px solid #cbd5e1 !important;
     }
 
     .stApp {
