@@ -32,12 +32,27 @@ st.markdown("""
         --border: #e2e8f0;
     }
 
-    html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
+    .stApp, .stMarkdown, p, span, label, .stMetric, [data-testid="stHeader"] {
+        color: #0f172a !important;
     }
-    
-    h1, h2, h3, .hero-text {
+
+    h1, h2, h3, h4, h5, h6, .hero-title, .hero-subtitle {
+        color: #0f172a !important;
         font-family: 'Outfit', sans-serif;
+    }
+
+    /* Sidebar Text Fix */
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #0f172a !important;
+    }
+    section[data-testid="stSidebar"] h2 {
+        color: #0f172a !important;
+    }
+
+    /* Input Field Labels */
+    .stTextInput label, .stTextArea label, .stFileUploader label {
+        color: #0f172a !important;
+        font-weight: 600 !important;
     }
 
     .stApp {
