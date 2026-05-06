@@ -23,46 +23,49 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500&display=swap');
     
     :root {
-        --primary: #4f46e5;
-        --secondary: #6366f1;
-        --background: #f1f5f9; /* Soft Slate-White to reduce glare */
+        --primary: #4338ca; /* Brighter Indigo */
+        --secondary: #4f46e5;
+        --background: #f8fafc;
         --surface: #ffffff;
-        --text-main: #000000; /* Pure Black for maximum contrast */
-        --text-muted: #1e293b;
-        --border: #cbd5e1; /* Darker borders for definition */
+        --text-main: #000000;
+        --border: #94a3b8; /* Even darker border */
     }
+
+    /* Max Visibility Typography */
+    html, body, [class*="css"], .stApp {
+        font-size: 18px !important; /* Larger base font */
+        color: #000000 !important;
+    }
+
+    h1 { font-size: 3.5rem !important; font-weight: 900 !important; }
+    h2 { font-size: 2.2rem !important; font-weight: 800 !important; }
+    h3 { font-size: 1.8rem !important; font-weight: 700 !important; }
 
     .stApp, .stMarkdown, p, span, label, .stMetric, [data-testid="stHeader"], .stButton>button {
         color: #000000 !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important; /* Forced semi-bold for all text */
     }
 
-    h1, h2, h3, h4, h5, h6, .hero-title, .hero-subtitle {
-        color: #000000 !important;
-        font-weight: 800 !important;
-    }
-
-    /* Premium Cards with Defined Borders */
+    /* Defined Container Cards */
     .premium-card, .stMetric, div[data-testid="stExpander"], .stPlotlyChart {
         background: white !important;
-        padding: 2rem;
-        border-radius: 16px;
-        border: 2px solid #cbd5e1 !important; /* Thick defined borders */
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        margin-bottom: 1.5rem;
+        padding: 2.5rem;
+        border-radius: 20px;
+        border: 3px solid #64748b !important; /* Thick 3px borders */
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
     }
 
-    /* Sidebar Contrast Fix */
+    /* Sidebar High Contrast */
     section[data-testid="stSidebar"] {
         background-color: #ffffff !important;
-        border-right: 2px solid #cbd5e1 !important;
+        border-right: 3px solid #64748b !important;
     }
     
-    /* Input Visibility Fix */
-    .stTextInput>div>div>input, .stTextArea>div>div>textarea {
-        background-color: white !important;
-        color: black !important;
-        border: 2px solid #cbd5e1 !important;
+    section[data-testid="stSidebar"] .stButton>button {
+        background-color: #f1f5f9 !important;
+        border: 2px solid #94a3b8 !important;
+        font-size: 1.1rem !important;
     }
 
     .stApp {
@@ -169,21 +172,21 @@ def render_score_gauge(score: float, title: str = "Match Score"):
         mode="gauge+number",
         value=score,
         domain={"x": [0, 1], "y": [0, 1]},
-        title={"text": title, "font": {"size": 24, "color": "#0f172a"}},
+        title={"text": title, "font": {"size": 28, "color": "#000000"}},
         gauge={
-            "axis": {"range": [0, 100], "tickwidth": 1, "tickcolor": "#94a3b8"},
-            "bar": {"color": "#4f46e5"},
+            "axis": {"range": [0, 100], "tickwidth": 2, "tickcolor": "#000000"},
+            "bar": {"color": "#4338ca"},
             "bgcolor": "white",
-            "borderwidth": 2,
-            "bordercolor": "#e2e8f0",
+            "borderwidth": 3,
+            "bordercolor": "#000000",
             "steps": [
-                {"range": [0, 40], "color": "#fee2e2"},
-                {"range": [40, 70], "color": "#fef3c7"},
-                {"range": [70, 100], "color": "#dcfce7"},
+                {"range": [0, 40], "color": "#ff4b4b"},
+                {"range": [40, 70], "color": "#ffa500"},
+                {"range": [70, 100], "color": "#00d100"},
             ],
         },
     ))
-    fig.update_layout(height=350, margin=dict(t=80, b=40, l=40, r=40), paper_bgcolor='rgba(0,0,0,0)')
+    fig.update_layout(height=400, margin=dict(t=100, b=40, l=40, r=40), paper_bgcolor='rgba(0,0,0,0)', font={'color': "#000000'})
     return fig
 
 # --- ROUTING LOGIC ---
