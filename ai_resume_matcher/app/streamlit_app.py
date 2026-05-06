@@ -12,7 +12,7 @@ sys.path.insert(0, ".")
 # --- PAGE CONFIG ---
 st.set_page_config(
     page_title="Kiro AI | Enterprise ATS Intelligence",
-    page_icon="🎯",
+    page_icon="\U0001f3af",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -61,12 +61,16 @@ st.markdown("""
 
     /* Premium Hero Section */
     .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 60px 5% 40px 5%;
         text-align: center;
         background: radial-gradient(circle at top right, #f5f3ff, transparent),
                     radial-gradient(circle at bottom left, #eff6ff, transparent);
         border-radius: 32px;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
 
     .hero-badge {
@@ -103,6 +107,10 @@ st.markdown("""
         border: 1px solid var(--border);
         box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
     }
 
     /* Custom Buttons */
@@ -134,38 +142,12 @@ st.markdown("""
         background-color: #e2e8f0 !important;
         border-color: #cbd5e1 !important;
     }
-
-    /* Landing Page Card Alignment */
-    [data-testid="column"] {
-        display: flex;
-        flex-direction: column;
-    }
-    .premium-card {
-        background: white;
-        padding: 2.5rem;
-        border-radius: 24px;
-        border: 1px solid var(--border);
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        flex: 1; /* Force equal height */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
-
-    /* Hero Section Alignment */
-    .hero-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 60px 5% 40px 5%;
-        text-align: center;
-        background: radial-gradient(circle at top right, #f5f3ff, transparent),
-                    radial-gradient(circle at bottom left, #eff6ff, transparent);
-        border-radius: 32px;
-        margin-bottom: 3rem;
-    }
+    
+    /* Hide Streamlit elements */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """, unsafe_allow_html=True)
 
 @st.cache_resource
 def load_pipeline():
@@ -177,7 +159,7 @@ def render_score_gauge(score: float, title: str = "Match Score"):
         mode="gauge+number",
         value=score,
         domain={"x": [0, 1], "y": [0, 1]},
-        title={"text": title, "font": {"size": 24, "color": "#0f172a", "family": "Outfit"}},
+        title={"text": title, "font": {"size": 24, "color": "#0f172a"}},
         gauge={
             "axis": {"range": [0, 100], "tickwidth": 1, "tickcolor": "#94a3b8"},
             "bar": {"color": "#4f46e5"},
@@ -207,14 +189,14 @@ with st.sidebar:
     st.markdown("<h2 style='margin-top:0;'>Kiro AI</h2>", unsafe_allow_html=True)
     st.divider()
     
-    if st.button("🏠 Platform Home", use_container_width=True): navigate_to('Home')
-    if st.button("🎯 AI Matching Engine", use_container_width=True): navigate_to('Analyze')
-    if st.button("⚖️ Bias & Ethics Center", use_container_width=True): navigate_to('Bias')
-    if st.button("🧬 Technical Blueprint", use_container_width=True): navigate_to('Docs')
+    if st.button("\U0001f3e0 Platform Home", use_container_width=True): navigate_to('Home')
+    if st.button("\U0001f3af AI Matching Engine", use_container_width=True): navigate_to('Analyze')
+    if st.button("\U00002696 Bias & Ethics Center", use_container_width=True): navigate_to('Bias')
+    if st.button("\U0001f9ec Technical Blueprint", use_container_width=True): navigate_to('Docs')
     
     st.divider()
     st.caption("Enterprise Edition v2.0")
-    st.caption("© 2026 Kiro Intelligence")
+    st.caption("\u00a9 2026 Kiro Intelligence")
 
 # --- PAGE: HOME (LANDING PAGE) ---
 if st.session_state.page == 'Home':
@@ -230,21 +212,21 @@ if st.session_state.page == 'Home':
     with lcol1:
         st.markdown("""
             <div class="premium-card">
-                <h3>🎯 Precision Match</h3>
+                <h3>&#127919; Precision Match</h3>
                 <p>Beyond keywords. Our Dual-Encoder architecture understands the semantic weight of experience.</p>
             </div>
         """, unsafe_allow_html=True)
     with lcol2:
         st.markdown("""
             <div class="premium-card">
-                <h3>⚖️ Fairness First</h3>
+                <h3>&#9878; Fairness First</h3>
                 <p>N6 Integrated Bias Auditing ensures every candidate is judged strictly on their technical merits.</p>
             </div>
         """, unsafe_allow_html=True)
     with lcol3:
         st.markdown("""
             <div class="premium-card">
-                <h3>🧬 Dynamic Ontology</h3>
+                <h3>&#129516; Dynamic Ontology</h3>
                 <p>Powered by ESCO, we recognize related skills and near-misses that other ATS systems miss.</p>
             </div>
         """, unsafe_allow_html=True)
@@ -252,13 +234,13 @@ if st.session_state.page == 'Home':
     st.markdown("<br><br>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns([1,2,1])
     with c2:
-        if st.button("Launch AI Matching Engine →", type="primary", use_container_width=True):
+        if st.button("Launch AI Matching Engine \u2192", type="primary", use_container_width=True):
             st.session_state.page = 'Analyze'
             st.rerun()
 
 # --- PAGE: ANALYZE ---
 elif st.session_state.page == 'Analyze':
-    st.markdown("<h1 style='font-size: 2.5rem;'>🎯 AI Matching Engine</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 2.5rem;'>\U0001f3af AI Matching Engine</h1>", unsafe_allow_html=True)
     st.markdown("Deep-alignment analysis for high-stakes recruitment.")
     
     st.divider()
@@ -266,18 +248,18 @@ elif st.session_state.page == 'Analyze':
     acol1, acol2 = st.columns([1, 1.5])
     
     with acol1:
-        st.markdown("### 📄 Candidate Data")
+        st.markdown("### \U0001f4c4 Candidate Data")
         resume_file = st.file_uploader("Upload Resume (PDF/DOCX)", type=["pdf", "docx", "txt"])
-        st.markdown("### 📝 Role Requirements")
+        st.markdown("### \U0001f4dd Role Requirements")
         jd_text = st.text_area("Job Description", height=200, placeholder="Paste JD requirements...")
         jd_skills_raw = st.text_input("Essential Skills (Optional)", placeholder="e.g. Python, SQL, React...")
         
-        analyze_btn = st.button("⚡ Run Enterprise Analysis", type="primary", use_container_width=True)
+        analyze_btn = st.button("\U000026a1 Run Enterprise Analysis", type="primary", use_container_width=True)
 
     with acol2:
         if analyze_btn and resume_file and jd_text:
             pipeline = load_pipeline()
-            with st.spinner("🧠 Initializing Neural Engine..."):
+            with st.spinner("\U0001f9e0 Initializing Neural Engine..."):
                 with tempfile.NamedTemporaryFile(delete=False, suffix=Path(resume_file.name).suffix) as tmp:
                     tmp.write(resume_file.read())
                     tmp_path = tmp.name
@@ -299,20 +281,20 @@ elif st.session_state.page == 'Analyze':
             with rcol2:
                 st.info(f"**Confidence**: {result.match_score.overall_score:.1f}% (Platt Calibrated)")
             
-            with st.expander("🛠 View Detailed Skill Matrix", expanded=True):
+            with st.expander("\U0001f6e0 View Detailed Skill Matrix", expanded=True):
                 sc1, sc2, sc3 = st.columns(3)
                 with sc1:
                     st.markdown("**Matched**")
-                    for _, s, _ in result.skill_gaps.matched_skills[:5]: st.write(f"✅ {s}")
+                    for _, s, _ in result.skill_gaps.matched_skills[:5]: st.write(f"\u2705 {s}")
                 with sc2:
                     st.markdown("**Gaps**")
-                    for s in result.skill_gaps.missing_skills[:5]: st.write(f"❌ {s}")
+                    for s in result.skill_gaps.missing_skills[:5]: st.write(f"\u274c {s}")
                 with sc3:
                     st.markdown("**Related**")
-                    for _, s, _ in result.skill_gaps.weak_matches[:5]: st.write(f"⚠️ {s}")
+                    for _, s, _ in result.skill_gaps.weak_matches[:5]: st.write(f"\u26a0 {s}")
             
             if result.counterfactual:
-                st.markdown("### 💡 Strategic Optimization (N5)")
+                st.markdown("### \U0001f4a1 Strategic Optimization (N5)")
                 st.markdown(f"""
                     <div style='background: #eff6ff; padding: 1.5rem; border-radius: 16px; border: 1px solid #bfdbfe;'>
                         <p style='color: #1e40af; font-weight: 600; margin-bottom: 0.5rem;'>AI Recommended Rewrite:</p>
@@ -331,7 +313,7 @@ elif st.session_state.page == 'Analyze':
 
 # --- PAGE: BIAS ---
 elif st.session_state.page == 'Bias':
-    st.markdown("<h1 style='font-size: 2.5rem;'>⚖️ Bias & Ethics Center</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 2.5rem;'>\U00002696 Bias & Ethics Center</h1>", unsafe_allow_html=True)
     st.markdown("Ensuring algorithmic fairness through identity-proxy auditing.")
     
     st.markdown("""
@@ -346,7 +328,7 @@ elif st.session_state.page == 'Bias':
 
 # --- PAGE: DOCS ---
 elif st.session_state.page == 'Docs':
-    st.markdown("<h1 style='font-size: 2.5rem;'>🧬 Technical Blueprint</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 2.5rem;'>\U0001f9ec Technical Blueprint</h1>", unsafe_allow_html=True)
     st.markdown("The Research Foundation of Kiro Enterprise.")
     
     st.markdown("<br>", unsafe_allow_html=True)
