@@ -8,9 +8,10 @@ import plotly.express as px
 import tempfile
 import os
 import sys
+from pathlib import Path
 
 # Ensure src is in path
-sys.path.insert(0, os.getcwd())
+sys.path.insert(0, ".")
 
 st.set_page_config(
     page_title="Kiro Matcher | Research-Grade AI",
@@ -19,23 +20,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Premium Look
+# Custom CSS for Premium Dark Mode
 st.markdown("""
-<style>
-    .stApp {
-        background-color: #0e1117;
-        color: #e0e0e0;
-    }
-    .main-header {
-        font-size: 3rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.5rem;
-    }
-    .card {
-        background-color: #1a1c24;
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
     
@@ -43,55 +29,68 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
     }
     
-    .main {
-        background-color: #f8fafc;
+    .stApp {
+        background-color: #0f172a;
+        color: #f1f5f9;
     }
     
-    /* Premium Cards */
-    .stMetric, .stDataFrame, .stPlotlyChart {
-        background: white;
+    /* Premium Cards (Dark) */
+    .stMetric, .stDataFrame, .stPlotlyChart, div[data-testid="stExpander"] {
+        background-color: #1e293b !important;
         padding: 1.5rem;
         border-radius: 16px;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        border: 1px solid #334155 !important;
         margin-bottom: 1.5rem;
     }
     
-    /* Sidebar Styling */
+    /* Sidebar Styling (Darker) */
     section[data-testid="stSidebar"] {
-        background-color: #1e293b;
-        color: white;
+        background-color: #020617 !important;
     }
     section[data-testid="stSidebar"] .stMarkdown {
-        color: #cbd5e1;
+        color: #94a3b8;
     }
     
-    /* Button Styling */
+    /* Button Styling (Indigo) */
     .stButton>button {
         width: 100%;
-        border-radius: 10px;
-        height: 3rem;
-        background-color: #4f46e5;
+        border-radius: 12px;
+        height: 3.5rem;
+        background-color: #6366f1;
         color: white;
-        font-weight: 600;
+        font-weight: 700;
+        font-size: 1.1rem;
         border: none;
-        transition: all 0.2s;
+        transition: all 0.3s;
+        box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
     }
     .stButton>button:hover {
-        background-color: #4338ca;
-        transform: translateY(-1px);
+        background-color: #4f46e5 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.5);
+        color: white !important;
     }
     
-    /* Section Headers */
+    /* Section Headers (Gradients) */
     h1, h2, h3 {
-        color: #0f172a;
-        font-weight: 700;
+        color: #f8fafc !important;
+        font-weight: 800;
     }
     
     /* Custom Info Box */
     .stAlert {
+        background-color: #1e293b !important;
+        color: #f1f5f9 !important;
         border-radius: 12px;
-        border: none;
+        border: 1px solid #334155 !important;
+    }
+    
+    /* Input Fields */
+    .stTextInput>div>div>input, .stTextArea>div>div>textarea {
+        background-color: #0f172a !important;
+        color: #f1f5f9 !important;
+        border: 1px solid #334155 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -106,17 +105,17 @@ def render_score_gauge(score: float, title: str = "Match Confidence"):
         mode="gauge+number",
         value=score,
         domain={"x": [0, 1], "y": [0, 1]},
-        title={"text": title, "font": {"size": 20, "color": "#475569"}},
+        title={"text": title, "font": {"size": 20, "color": "#f1f5f9"}},
         gauge={
             "axis": {"range": [0, 100], "tickwidth": 1, "tickcolor": "#94a3b8"},
-            "bar": {"color": "#4f46e5"},
-            "bgcolor": "white",
+            "bar": {"color": "#6366f1"},
+            "bgcolor": "#1e293b",
             "borderwidth": 2,
-            "bordercolor": "#e2e8f0",
+            "bordercolor": "#334155",
             "steps": [
-                {"range": [0, 40], "color": "#fee2e2"},
-                {"range": [40, 70], "color": "#fef3c7"},
-                {"range": [70, 100], "color": "#dcfce7"},
+                {"range": [0, 40], "color": "#450a0a"},
+                {"range": [40, 70], "color": "#451a03"},
+                {"range": [70, 100], "color": "#064e3b"},
             ],
         },
     ))
@@ -125,6 +124,7 @@ def render_score_gauge(score: float, title: str = "Match Confidence"):
         margin=dict(t=80, b=40, l=40, r=40),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
+        font={'color': "#f1f5f9"}
     )
     return fig
 
@@ -145,7 +145,8 @@ def render_section_bar(section_scores: dict):
         margin=dict(t=10, b=10, l=10, r=10),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        xaxis=dict(range=[0, 100], gridcolor='#f1f5f9'),
+        font={'color': "#f1f5f9"},
+        xaxis=dict(range=[0, 100], gridcolor='#334155'),
         yaxis=dict(gridcolor='rgba(0,0,0,0)')
     )
     return fig
