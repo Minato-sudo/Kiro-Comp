@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Project specific
+ai_resume_matcher/data/raw/
+ai_resume_matcher/data/processed/
+ai_resume_matcher/models/
+DataSet/
+*.pt
+*.pkl
+*.jsonl
+ai_resume_matcher/data/esco/skills_en.csv
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
