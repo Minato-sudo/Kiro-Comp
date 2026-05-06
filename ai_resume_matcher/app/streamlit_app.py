@@ -236,6 +236,34 @@ def main():
                 for res_skill, jd_skill, score in result.skill_gaps.weak_matches[:10]:
                     st.write(f"• {jd_skill} (via *{res_skill}*)")
 
+            # --- CAREER ROADMAP & REJECTION ANALYSIS ---
+            st.divider()
+            st.markdown("### 🛣 Rejection Analysis & Career Roadmap")
+            
+            advice_col1, advice_col2 = st.columns(2)
+            
+            with advice_col1:
+                st.markdown("#### 🔍 Why the score is limited")
+                if result.match_score.overall_score < 50:
+                    st.error("Critical Alignment Gap: Your profile currently lacks several core technical pillars required for this role.")
+                elif result.match_score.overall_score < 75:
+                    st.warning("Moderate Alignment: You have the foundation, but lack specific domain expertise or seniority indicators.")
+                else:
+                    st.success("Strong Alignment: You meet most requirements, focusing on minor phrasing optimizations will maximize impact.")
+                
+                # Identify weakest section
+                worst_sec = min(result.match_score.section_scores, key=result.match_score.section_scores.get)
+                st.write(f"👉 **Structural Weakness**: Your **{worst_sec.capitalize()}** section is providing the lowest evidence. Focus on expanding this area with more detail.")
+
+            with advice_col2:
+                st.markdown("#### 🛠 Targeted Action Plan")
+                if result.skill_gaps.missing_skills:
+                    top_missing = result.skill_gaps.missing_skills[:3]
+                    st.write(f"1. **Upskill Priority**: Obtain certifications or build projects involving: **{', '.join(top_missing)}**.")
+                
+                st.write("2. **Quantify Experience**: Add metric-driven results (e.g., '% improvement', 'reduced latency by Xms') to your experience bullets.")
+                st.write("3. **Keyword Synchronization**: Use the terminology found in the JD (see 'Matched Skills' above) to help the attention engine find evidence faster.")
+
             # --- COUNTERFACTUAL INSIGHTS ---
             if result.counterfactual:
                 st.markdown("---")
